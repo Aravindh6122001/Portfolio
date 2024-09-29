@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-const NotFoundPage = lazy(() => import("../../components/page/ErrorPage"));
+const NotFoundPage = lazy(() => import("../../page/ErrorPage"));
 
 console.log("common");
 
