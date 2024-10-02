@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Suspense } from "../../provider/Suspense";
 import AppBar from "../../components/AppBar";
-import IconButton from "@mui/material/IconButton";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import Greeting from "../../components/Greeting";
+import Footer from "../../screens/Footer";
 
 export const PublicLayout = () => {
   const [isLightMode, setIsLightMode] = useState(true);
@@ -15,32 +12,23 @@ export const PublicLayout = () => {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="flex flex-col h-screen">
+      {" "}
+      {/* Flex container to structure layout */}
       {/* AppBar Section */}
-      <div className="relative mb-2">
-        <div className="flex justify-center items-center">
-          <AppBar />
-        </div>
-
-        <IconButton
-          color="inherit"
-          sx={{
-            position: "absolute",
-            top: 7,
-            right: 0,
-          }}
-          onClick={handleToggleTheme}
-        >
-          {isLightMode ? <LightModeIcon /> : <DarkModeIcon />}
-        </IconButton>
+      <div className="flex justify-center items-center">
+        <AppBar />
       </div>
-
       {/* Main Content */}
-      <div className="h-screen mx-10">
+      <div className="flex-grow mx-10">
+        {" "}
+        {/* This will grow to fill available space */}
         <Suspense>
           <Outlet />
         </Suspense>
       </div>
+      {/* Footer Section */} {/* Footer will sit at the bottom */}
+      <Footer />
     </div>
   );
 };

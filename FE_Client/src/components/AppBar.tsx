@@ -1,6 +1,20 @@
 import * as React from "react";
-import { Box, Toolbar, Typography, Button } from "@mui/material";
-import Slide from "@mui/material/Slide";
+import {
+  Box,
+  Toolbar,
+  Button,
+  Divider,
+  IconButton,
+  Slide,
+} from "@mui/material";
+import {
+  Email,
+  GitHub,
+  LinkedIn,
+  DarkMode,
+  LightMode,
+} from "@mui/icons-material"; // Import MUI icons
+import DiscordIcon from "../assets/svg/discordIcon.svg";
 
 interface Props {
   window?: () => Window;
@@ -8,16 +22,19 @@ interface Props {
 }
 
 // Custom hook to hide the navbar when scrolling away from the top
-function useAtTop() {
-  const [atTop, setAtTop] = React.useState(true);
+function useHideOnScroll() {
+  const [visible, setVisible] = React.useState(true);
 
   React.useEffect(() => {
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      if (window.scrollY === 0) {
-        setAtTop(true);
+      if (window.scrollY > lastScrollY) {
+        setVisible(false); // Scroll down
       } else {
-        setAtTop(false);
+        setVisible(true); // Scroll up
       }
+      lastScrollY = window.scrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -27,31 +44,28 @@ function useAtTop() {
     };
   }, []);
 
-  return atTop;
+  return visible;
 }
 
-// Component to hide the navbar on scroll
-function HideOnScroll({ children }: Props) {
-  const atTop = useAtTop();
-
-  return (
-    <Slide appear={false} direction="down" in={atTop}>
-      {children}
-    </Slide>
-  );
-}
-
+// Component for the AppBar
 const AppBar = (props: Props) => {
   const navItems = ["Works", "Resume", "About", "Contact"];
 
+  const [darkMode, setDarkMode] = React.useState(false); // State to handle theme toggle
+  const handleThemeToggle = () => {
+    setDarkMode((prev) => !prev);
+  };
+
+  const visible = useHideOnScroll(); // Use the custom hook to determine visibility
+
   return (
     <React.Fragment>
-      <HideOnScroll {...props}>
+      <Slide direction="down" in={visible}>
         <Box
           sx={{
             backgroundColor: "#242424",
             width: "800px", // Adjust the width as needed
-            margin: "0 auto", // This centers the navbar horizontally
+            margin: "0 auto", // Center the navbar horizontally
             borderRadius: "50px", // Optional: adds a subtle border radius
             position: "fixed", // Ensures it's fixed at the top
             top: 20,
@@ -59,29 +73,60 @@ const AppBar = (props: Props) => {
             right: 0,
             borderWidth: 1,
             borderColor: "#fff",
+            zIndex: 10, // Keep it on top of other elements
           }}
         >
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            {/* Left Side: Logo or Title */}
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
-              Aravindh
-            </Typography>
-
-            {/* Right Side: Navigation Items */}
-            <Box>
+          <Toolbar
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            {/* Left Side: Navigation Items */}
+            <Box sx={{ display: "flex", alignItems: "center" }}>
               {navItems.map((item) => (
                 <Button key={item} sx={{ color: "#fff", marginRight: 2 }}>
                   {item}
                 </Button>
               ))}
+              <Divider
+                orientation="vertical"
+                sx={{ borderColor: "#fff", height: 24, marginX: 3 }}
+              />{" "}
+              {/* Vertical Divider */}
+              {/* Social Icons Section */}
+              <IconButton sx={{ color: "#fff", marginRight: 1 }}>
+                <Email />
+              </IconButton>
+              <IconButton sx={{ color: "#fff", marginRight: 1 }}>
+                <LinkedIn />
+              </IconButton>
+              <IconButton sx={{ color: "#fff", marginRight: 1 }}>
+                <GitHub />
+              </IconButton>
+              <IconButton sx={{ color: "#fff", marginRight: 1 }}>
+                <img
+                  src={DiscordIcon}
+                  alt="Discord Icon"
+                  width={24}
+                  height={24}
+                />{" "}
+                {/* Updated size */}
+              </IconButton>
+              <Divider
+                orientation="vertical"
+                sx={{ borderColor: "#fff", height: 24, marginX: 1 }}
+              />{" "}
             </Box>
+
+            {/* Theme Toggle Button */}
+            <IconButton onClick={handleThemeToggle} sx={{ color: "#fff" }}>
+              {darkMode ? <LightMode /> : <DarkMode />}
+            </IconButton>
           </Toolbar>
         </Box>
-      </HideOnScroll>
+      </Slide>
       <Toolbar /> {/* Empty Toolbar to push content down */}
     </React.Fragment>
   );

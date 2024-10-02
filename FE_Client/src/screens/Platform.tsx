@@ -8,11 +8,16 @@ import WorkingGif from "../assets/gif/Working.gif";
 
 const Platform = () => {
   const [progress, setProgress] = useState(0); // Track scroll progress
+  const title = `Multi-Platform Solutions`;
+  const description = `Specializing in the development of cutting-edge, high-performance
+        applications for both mobile and web platforms. Ensuring seamless user
+        experiences, optimized performance, and scalable solutions to meet the
+        demands of modern digital ecosystems.`;
 
   return (
-    <div className="flex flex-wrap items-center w-full h-[80vh]">
+    <div className="w-full h-auto flex flex-wrap items-center">
       <div className="flex-1">
-        <InfoCard />
+        <InfoCard title={title} description={description} />
       </div>
       <div className="flex-1 flex justify-center items-center">
         <Parallax onProgressChange={(progress) => setProgress(progress)}>

@@ -1,5 +1,4 @@
-import ImageCard from "../components/ImageCard";
-
+import React from "react";
 import ReactLogo from "../assets/svg/react.svg";
 import JavaScriptLogo from "../assets/svg/javascript.svg";
 import PythonLogo from "../assets/svg/python.svg";
@@ -7,16 +6,74 @@ import PostgresLogo from "../assets/svg/postgresql.svg";
 import AngularLogo from "../assets/svg/angular.svg";
 import fastApiLogo from "../assets/svg/fastapi.svg";
 import DjangoLogo from "../assets/svg/django.svg";
+import DockerLogo from "../assets/svg/docker.svg";
+import XcodeLogo from "../assets/svg/xCode.svg";
+import AndroidStudioLogo from "../assets/svg/androidStudio.svg";
+import Neo4jLogo from "../assets/svg/neo4j.svg";
 
-const Skills = () => {
+const skillsData = [
+  { Icon: ReactLogo, name: "React" },
+  { Icon: JavaScriptLogo, name: "JavaScript" },
+  { Icon: PythonLogo, name: "Python" },
+  { Icon: PostgresLogo, name: "Postgresql" },
+  { Icon: AngularLogo, name: "Angular" },
+  { Icon: fastApiLogo, name: "FastApi" },
+  { Icon: DjangoLogo, name: "Django" },
+  { Icon: DockerLogo, name: "Docker" },
+  { Icon: XcodeLogo, name: "XCode" },
+  { Icon: AndroidStudioLogo, name: "AndroidStudio" },
+  { Icon: Neo4jLogo, name: "Neo4j" },
+];
+
+const Skills: React.FC = () => {
+  // Inline styles for the masking and scroll behavior
+  const containerStyle = {
+    maskImage:
+      "linear-gradient(to right, transparent, black 30%, black 70%, transparent)",
+    WebkitMaskImage:
+      "linear-gradient(to right, transparent, black 30%, black 70%, transparent)",
+  };
+
+  const scrollAnimation = {
+    animation: "scroll 15s linear infinite",
+  };
+
   return (
-    <div className="h-[60vh] flex flex-wrap justify-start items-center gap-6">
-      <ImageCard Icon={ReactLogo} name="React" />
-      <ImageCard Icon={JavaScriptLogo} name="JavaScript" />
-      <ImageCard Icon={PythonLogo} name="Python" />
-      <ImageCard Icon={PostgresLogo} name="Postgresql" />
-      <ImageCard Icon={AngularLogo} name="Angular" />
-      <ImageCard Icon={fastApiLogo} name="FastApi" />
+    <div
+      className="w-full h-[200px] overflow-hidden relative"
+      style={containerStyle}
+    >
+      <div className="flex" style={scrollAnimation}>
+        {/* Rendering the skill cards twice for continuous scroll */}
+        {skillsData.concat(skillsData).map((skill, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 w-[180px] h-[180px] mx-2 p-5 flex flex-col gap-5 justify-center items-center"
+          >
+            <img
+              src={skill.Icon}
+              alt={`${skill.name} logo`}
+              className="w-12 h-12"
+            />
+            <p className="text-white text-lg">{skill.name}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Inline styling for keyframes */}
+      <style jsx>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-100%);
+          }
+        }
+        .flex:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 };

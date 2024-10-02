@@ -5,48 +5,57 @@ import { ParallaxProvider, Parallax } from "react-scroll-parallax";
 import Platform from "../screens/Platform";
 import Skills from "../screens/Skills";
 import SpeedDialTooltip from "../components/SpeedDialTooltip";
+import Works from "../screens/Works";
+import Form from "../screens/Form";
+import Footer from "../screens/Footer";
 
 const LandingPage = () => {
   return (
     <>
       <ParallaxProvider>
         {/* Greeting Section with Parallax Effect */}
-        <Parallax
-        // easing="easeOutQuad"
-        // translateX={[-100, 100, "easeInQuint"]}
-        // speed={0.5}
-        >
+        <Parallax>
           <Greeting />
         </Parallax>
+
         {/* Platform Section with Parallax Effect */}
-        <Typography variant="h2" component="h2" fontWeight={500}>
+        <Typography
+          variant="h2"
+          component="h2"
+          fontWeight={500}
+          sx={{ paddingBottom: 5 }}
+        >
           About me
         </Typography>
-        <Parallax
-        // easing="easeOutQuad" translateX={[-100, 20]} speed={0.1}
-        >
+        <Parallax>
           <Platform />
-        </Parallax>
-        <Typography variant="h2" component="h2" fontWeight={500}>
-          Skills
-        </Typography>
-        {/* Skills Section with Parallax Effect */}
-        <Parallax easing="easeOutQuad" translateY={[100, -20]} speed={10}>
           <Skills />
         </Parallax>
-        <Typography variant="h2" component="h2" fontWeight={500}>
+
+        {/* Work Section with Parallax Effect */}
+        <Typography
+          variant="h2"
+          component="h2"
+          fontWeight={500}
+          sx={{ paddingBottom: 5 }}
+        >
           Works
         </Typography>
 
-        <Parallax easing="easeOutQuad" translateX={[100, -40]} speed={10}>
-          <Skills />
-        </Parallax>
-      </ParallaxProvider>
+        <Works />
 
-      {/* Sticky SpeedDial at the bottom left */}
-      <Box sx={{ position: "sticky", bottom: 16, left: 16, zIndex: 1000 }}>
-        <SpeedDialTooltip />
-      </Box>
+        {/* Friend with Parallax Effect */}
+        <Typography
+          variant="h2"
+          component="h2"
+          fontWeight={500}
+          sx={{ paddingBottom: 5 }}
+        >
+          Wanna be my Friend
+        </Typography>
+
+        <Form />
+      </ParallaxProvider>
     </>
   );
 };
