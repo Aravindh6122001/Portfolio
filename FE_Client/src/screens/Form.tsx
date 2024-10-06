@@ -18,6 +18,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { keyframes } from "@emotion/react";
 import InfoCard from "../components/InfoCard";
 import { Parallax } from "react-scroll-parallax";
+import { useFetch } from "../hooks/useFetch";
 
 // Shake animation for error
 const shake = keyframes`
@@ -49,17 +50,36 @@ const Form = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    setIsSubmitted(true);
-    setShowSuggestions(false);
+    const { fetchData } = useFetch("http://127.0.0.1:8000/messages/"); 
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setValue("email", "");
-      setMessageValue("");
-      setShowSuggestions(true);
-    }, 2000);
-  };
+
+    const onSubmit = async (data:any) => {
+      
+      setIsSubmitted(true);
+      setShowSuggestions(false);
+  
+      // Send data to your endpoint
+      const response = await fetchData("http://127.0.0.1:8000/messages/", { // Replace with your actual endpoint
+        method: "POST",
+        body: {
+          email: data.email,
+          message: messageValue,
+        },
+      });
+  
+      // Handle the response if necessary
+      if (response) {
+        // You can add logic here based on the response if needed
+        console.log("Response from server:", response);
+      }
+  
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setValue("email", "");
+        setMessageValue("");
+        setShowSuggestions(true);
+      }, 2000);
+    };
 
   const handleSuggestionClick = (suggestion) => {
     setMessageValue(suggestion);
@@ -68,6 +88,7 @@ const Form = () => {
 
   const title = `Multi-Platform Solutions`;
   const description = `Let's break the ice and start a conversation! Whether you're looking for someone to chat about your favorite movies, share ideas, or just say hello, I'm here to make it easy and fun.Let's get started! `;
+
 
   return (
     <div className="w-full h-auto flex flex-wrap justify-center items-center">
