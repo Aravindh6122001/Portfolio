@@ -19,6 +19,7 @@ import { keyframes } from "@emotion/react";
 import InfoCard from "../components/InfoCard";
 import { Parallax } from "react-scroll-parallax";
 import { useFetch } from "../hooks/useFetch";
+import { useColor } from "../contexts/ColorContext";
 
 // Shake animation for error
 const shake = keyframes`
@@ -40,6 +41,7 @@ const Form = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [messageValue, setMessageValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const { color } = useColor();
 
   const {
     register,
@@ -50,50 +52,87 @@ const Form = () => {
     mode: "onChange",
   });
 
-    const { fetchData } = useFetch("http://127.0.0.1:8000/messages/"); 
+  const { fetchData } = useFetch("http://127.0.0.1:8000/messages/");
 
+  const onSubmit = async (data: any) => {
+    setIsSubmitted(true);
+    setShowSuggestions(false);
 
-    const onSubmit = async (data:any) => {
-      
-      setIsSubmitted(true);
-      setShowSuggestions(false);
-  
-      // Send data to your endpoint
-      const response = await fetchData("http://127.0.0.1:8000/messages/", { // Replace with your actual endpoint
-        method: "POST",
-        body: {
-          email: data.email,
-          message: messageValue,
-        },
-      });
-  
-      // Handle the response if necessary
-      if (response) {
-        // You can add logic here based on the response if needed
-        console.log("Response from server:", response);
-      }
-  
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setValue("email", "");
-        setMessageValue("");
-        setShowSuggestions(true);
-      }, 2000);
-    };
+    // Send data to your endpoint
+    const response = await fetchData("http://127.0.0.1:8000/messages/", {
+      // Replace with your actual endpoint
+      method: "POST",
+      body: {
+        email: data.email,
+        message: messageValue,
+      },
+    });
+
+    // Handle the response if necessary
+    if (response) {
+      // You can add logic here based on the response if needed
+      console.log("Response from server:", response);
+    }
+
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setValue("email", "");
+      setMessageValue("");
+      setShowSuggestions(true);
+    }, 2000);
+  };
 
   const handleSuggestionClick = (suggestion) => {
     setMessageValue(suggestion);
     setShowSuggestions(false);
   };
 
-  const title = `Multi-Platform Solutions`;
-  const description = `Let's break the ice and start a conversation! Whether you're looking for someone to chat about your favorite movies, share ideas, or just say hello, I'm here to make it easy and fun.Let's get started! `;
-
+  const descriptionLines = [
+    {
+      text: "Let's break the ice and start a conversation!",
+      variant: "h5", // Bigger size for the first line
+    },
+    {
+      text: (
+        <>
+          Whether you're looking for someone to chat about your favorite movies,
+          share ideas, or just say
+          <Typography
+            variant="h4"
+            component="span"
+            sx={{ display: "inline", color: `${color.textColor}` }}
+          >
+            {"____"}hello
+          </Typography>
+        </>
+      ),
+      variant: "h6",
+    },
+    {
+      text: "I'm here to make it easy and fun. Let's get started!",
+      variant: "h6", // Smaller size for the last line
+    },
+  ];
 
   return (
-    <div className="w-full h-auto flex flex-wrap justify-center items-center">
-      <div className="flex-1">
-        <InfoCard description={description} />
+    <div className="w-full h-auto flex flex-wrap justify-between items-center">
+      <div className="w-[700px]">
+        {/* <InfoCard description={description} /> */}
+        <div className="flex flex-col gap-5 py-10">
+          {descriptionLines.map((line, index) => (
+            <Typography
+              key={index}
+              variant={line.variant}
+              component="h2"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl"
+              sx={{
+                color: `${color.textColor}`,
+              }}
+            >
+              {line.text}
+            </Typography>
+          ))}
+        </div>
       </div>
       <Parallax scale={[0.9, 1.5, "easeInQuad"]}>
         <Zoom in={true} timeout={500}>

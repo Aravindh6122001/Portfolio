@@ -15,11 +15,11 @@ const Platform = () => {
         demands of modern digital ecosystems.`;
 
   return (
-    <div className="w-full h-auto flex flex-wrap items-center">
-      <div className="flex-1">
+    <div className="w-full h-auto flex flex-wrap items-center justify-center">
+      <div className="flex-1 p-4">
         <InfoCard title={title} description={description} />
       </div>
-      <div className="flex-1 flex justify-center items-center">
+      <div className="flex-1 flex justify-center items-center min-w-[300px] md:min-w-[400px] p-4">
         <Parallax onProgressChange={(progress) => setProgress(progress)}>
           <div
             className="spinner"
@@ -37,8 +37,7 @@ const Platform = () => {
               transform: `rotate(${progress * 720}deg)`, // Rotate based on scroll progress
             }}
           >
-            {/* Centered Code Icon */}
-            {/* <CodeIcon style={{ fontSize: "50px", position: "absolute" }} /> */}
+            {/* Centered Working Gif */}
             <img
               src={WorkingGif}
               width={150}

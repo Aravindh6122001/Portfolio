@@ -7,15 +7,18 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme/theme";
 
 import "./index.css";
+import { ColorProvider } from "./contexts/ColorContext";
 
 createRoot(document.getElementById("root")!).render(
   <>
     <StrictMode>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <AppRoutes />
-        </ThemeProvider>
-      </BrowserRouter>
+      <ColorProvider>
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <AppRoutes />
+          </ThemeProvider>
+        </BrowserRouter>
+      </ColorProvider>
     </StrictMode>
   </>
 );

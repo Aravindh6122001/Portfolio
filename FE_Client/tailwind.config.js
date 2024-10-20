@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+
   theme: {
     extend: {
       keyframes: {
@@ -11,6 +12,34 @@ export default {
       },
       animation: {
         scroll: "scroll 1s linear infinite",
+      },
+      fontSize: {
+        xs: "0.75rem",
+        sm: "0.875rem",
+        base: "1rem",
+        lg: "1.125rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+        "5xl": "3rem",
+        "6xl": "4rem",
+        "7xl": "5rem",
+      },
+      spacing: {
+        128: "32rem",
+        144: "36rem",
+      },
+      screens: {
+        xs: "350px",
+        sm: "640px",
+        md: "720px",
+      },
+      colors: {
+        bgDark: "#242424",
+        bgLight: "#fff",
+        textDark: "#242424",
+        textLight: "#fff",
       },
     },
   },

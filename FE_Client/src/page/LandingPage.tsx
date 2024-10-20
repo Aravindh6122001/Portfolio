@@ -8,8 +8,15 @@ import SpeedDialTooltip from "../components/SpeedDialTooltip";
 import Works from "../screens/Works";
 import Form from "../screens/Form";
 import Footer from "../screens/Footer";
+import { useColor } from "../contexts/ColorContext";
 
 const LandingPage = () => {
+  const { color } = useColor();
+
+  const headerStyle = {
+    paddingBottom: 5,
+    color: `${color.textColor}`,
+  };
   return (
     <>
       <ParallaxProvider>
@@ -23,7 +30,7 @@ const LandingPage = () => {
           variant="h2"
           component="h2"
           fontWeight={500}
-          sx={{ paddingBottom: 5 }}
+          sx={headerStyle}
         >
           About me
         </Typography>
@@ -37,7 +44,7 @@ const LandingPage = () => {
           variant="h2"
           component="h2"
           fontWeight={500}
-          sx={{ paddingBottom: 5 }}
+          sx={headerStyle}
         >
           Works
         </Typography>
@@ -49,7 +56,7 @@ const LandingPage = () => {
           variant="h2"
           component="h2"
           fontWeight={500}
-          sx={{ paddingBottom: 5 }}
+          sx={headerStyle}
         >
           Wanna be my Friend
         </Typography>

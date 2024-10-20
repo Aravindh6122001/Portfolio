@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Typography, useMediaQuery } from "@mui/material";
 import { Parallax, useParallax } from "react-scroll-parallax";
 import heroImage from "../assets/jpg/HeroImage.jpg";
+import { useColor } from "../contexts/ColorContext";
 
 const Greeting = () => {
   const greeting = `Hi, I'm Aravindh :)`;
-  const shortNote = `A fullstack developer with 1+ years of experience building user-friendly solutions, including a data cleansing and storage system, a transportation booking platform, and a goal-tracking application.`;
+  const shortNote = `A fullstack developer with 1+ years 
+  of experience building user-friendly solutions, including a 
+  data cleansing and storage system, a transportation booking 
+  platform, and a goal-tracking application.`;
+
+  const isXsOrSmOrMd = useMediaQuery((theme) => theme.breakpoints.down("md")); // Change this to 'sm' or 'xs' as needed
+
+  const variant = isXsOrSmOrMd ? "h5" : "h4";
 
   const [scrollY, setScrollY] = useState(0);
+  const { color } = useColor();
 
   const handleScroll = () => {
     setScrollY(window.scrollY);
@@ -25,7 +34,6 @@ const Greeting = () => {
 
   const greetingStyle = {
     fontWeight: scrollY > 0 ? "bold" : "normal",
-    // transition: "font-weight 0.1s ease",
   };
 
   const shortParallex = useParallax<HTMLDivElement>({
@@ -38,24 +46,27 @@ const Greeting = () => {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center w-full h-[95vh] gap-3 overflow-hidden`}
+      className={`flex flex-col justify-center items-center w-full ${
+        isXsOrSmOrMd && "h-[80vh]"
+      } h-[100vh] xs:mt-24 sm:mt-0 overflow-hidden`}
     >
-      <div>
-        <Avatar
-          alt="Remy Sharp"
-          src={heroImage}
-          sx={{
-            width: 250,
-            height: 250,
-            borderColor: "#fff",
-            borderWidth: 1,
-            objectFit: "contain",
-            opacity: avatarOpacity,
-            transition: "opacity 0.2s ease-in-out",
-          }}
-        />
-      </div>
-      <div className="w-[88%]">
+      {/* Avatar Section */}
+      <Avatar
+        alt="Aravindh"
+        src={heroImage}
+        sx={{
+          width: { xs: 200, sm: 240, md: 270 }, // Responsive avatar size based on your screens
+          height: { xs: 200, sm: 240, md: 270 },
+          borderColor: `${color.textColor}`,
+          borderWidth: 1,
+          objectFit: "contain",
+          opacity: avatarOpacity,
+          transition: "opacity 0.2s ease-in-out",
+        }}
+      />
+
+      {/* Greeting and Short Note Section */}
+      <div className="flex flex-col xs:gap-24 sm:gap-6 w-[90%] md:w-[70%] overflow-hidden ">
         <Parallax easing="easeOutQuad" translateY={[-100, 70]} speed={10}>
           <Typography
             ref={shortParallex.ref}
@@ -63,19 +74,24 @@ const Greeting = () => {
             component="h2"
             align="center"
             style={greetingStyle}
+            className="text-base xs:text-lg sm:text-3xl md:text-4xl lg:text-5xl font-bold"
+            sx={{
+              color: `${color.textColor}`,
+            }}
           >
             {greeting}
           </Typography>
         </Parallax>
 
         <Typography
-          variant="h4"
+          variant={variant}
           component="h4"
           align="center"
-          fontWeight={400}
+          className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-normal mt-2"
           style={{
             opacity: shortNoteOpacity,
             transition: "opacity 0.2s ease-in-out",
+            color: `${color.textColor}`,
           }}
         >
           {shortNote}

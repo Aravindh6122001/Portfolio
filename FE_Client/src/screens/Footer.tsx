@@ -8,8 +8,11 @@ import WorkIcon from "@mui/icons-material/Work";
 import DescriptionIcon from "@mui/icons-material/Description"; // Commonly used for 'Resume'
 
 import DiscordIcon from "../assets/svg/discordIcon.svg";
+import { useColor } from "../contexts/ColorContext";
 
 const Footer = () => {
+  const { color } = useColor();
+
   const quickLinks = [
     { name: "Home", url: "/", sectionId: "homeSection", icon: HomeIcon },
     { name: "About", url: "/about", sectionId: "aboutSection", icon: InfoIcon },
@@ -51,12 +54,15 @@ const Footer = () => {
   focus on innovation and user experience in a rapidly changing digital landscape.`;
 
   return (
-    <div className="flex flex-wrap justify-around items-center bg-white p-5 mt-10">
+    <div
+      className="flex flex-wrap justify-around items-center p-5 pt-10"
+      style={{ backgroundColor: `${color.bgColor}` }}
+    >
       <div className="flex flex-col justify-center gap-3 w-[400px]">
-        <Typography variant="h6" fontWeight={600} color="black">
+        <Typography variant="h6" fontWeight={600} color={`${color.textColor}`}>
           {title}
         </Typography>
-        <Typography variant="body2" color="black">
+        <Typography variant="body2" color={`${color.textColor}`}>
           {description}
         </Typography>
       </div>
