@@ -2,8 +2,10 @@ import { BorderColor } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useColor } from "../contexts/ColorContext";
 
 const ImageCard = ({ backdrop, name, description, navigateTo }) => {
+  const { color } = useColor();
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
 
@@ -46,16 +48,16 @@ const ImageCard = ({ backdrop, name, description, navigateTo }) => {
       transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
       transform: hover ? "translateY(-150px)" : "translateY(0)", // Move title up to the top of the description on hover
       // opacity: hover ? 0 : 1, // Fade out title on hover
+      // backgroundColor: "blur",
     },
     description: {
       position: "absolute",
       bottom: "10px", // Position it just above the bottom of the card
-      left: "20px",
       color: "black", // Change text color to white for better visibility
       opacity: hover ? 1 : 0, // Show description on hover
       transform: hover ? "translateY(0)" : "translateY(10px)", // Slide up the description
       transition: "opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
-      backgroundColor: "white",
+      backgroundColor: `#FFFFFF`,
       padding: "5px",
     },
   };

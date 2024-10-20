@@ -12,8 +12,8 @@ const Works = () => {
       {/* <Parallax scale={[0.7, 1.5]}> */}
       <ImageCard
         backdrop={image1}
-        name="Card Title 1"
-        description="This is a description for card 1 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime fugit adipisci distinctio consequatur officia. Ea nulla consectetur repellat quos architecto itaque dolor voluptates aspernatur placeat.
+        name="Booking & Reservation System"
+        description="I developed a mobile application that provides a seamless experience for booking both cabs and hotels. The app allows users to easily book rides and accommodations, with real-time availability and secure payments. The application is deployed on both Android and iOS platforms, offering a smooth user interface and reliable performance across devices.
 ."
         navigateTo="/page1"
       />
@@ -21,8 +21,8 @@ const Works = () => {
       {/* <Parallax scale={[0.7, 1.5]}> */}
       <ImageCard
         backdrop={image2}
-        name="Card Title 2"
-        description="This is a description for card 1 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime fugit adipisci distinctio consequatur officia. Ea nulla consectetur repellat quos architecto itaque dolor voluptates aspernatur placeat."
+        name="Unified Data Platform"
+        description="Our platform processes raw e-commerce data collected from various sources. The data is cleansed, de-duplicated, and organized into a single unified system. Clients can access this centralized data through one gateway, providing them with clean, reliable, and consistent information for better decision-making."
         navigateTo="/page2"
       />
       {/* </Parallax> */}
@@ -30,8 +30,8 @@ const Works = () => {
       {/* <Parallax scale={[0.7, 1.5]}> */}
       <ImageCard
         backdrop={image3}
-        name="Card Title 3"
-        description="This is a description for card 1 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime fugit adipisci distinctio consequatur officia. Ea nulla consectetur repellat quos architecto itaque dolor voluptates aspernatur placeat."
+        name="Goal Tracking Platform"
+        description="This application helps track employee goals and performance across the organization. It allows managers to set objectives, monitor progress, and provide feedback. Additionally, it includes robust employee management features, making it easy to manage roles, assignments, and performance reviews—all in one platform."
         navigateTo="/page3"
       />
       {/* </Parallax> */}

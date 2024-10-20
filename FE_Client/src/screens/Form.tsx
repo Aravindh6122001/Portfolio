@@ -109,7 +109,7 @@ const Form = () => {
       variant: "h6",
     },
     {
-      text: "I'm here to make it easy and fun. Let's get started!",
+      text: "I'm here to make it easy and fun. Looking forward to connect!",
       variant: "h6", // Smaller size for the last line
     },
   ];
@@ -250,7 +250,7 @@ const Form = () => {
                   }}
                 >
                   <DoneIcon sx={{ mr: 1 }} />
-                  Success! We'll see you soon.
+                  Message Sent.
                 </Typography>
               )}
               <Fade in={showSuggestions} timeout={500}>

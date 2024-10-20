@@ -10,6 +10,7 @@ import DockerLogo from "../assets/svg/docker.svg";
 import XcodeLogo from "../assets/svg/xCode.svg";
 import AndroidStudioLogo from "../assets/svg/androidStudio.svg";
 import Neo4jLogo from "../assets/svg/neo4j.svg";
+import { useColor } from "../contexts/ColorContext";
 
 const skillsData = [
   { Icon: ReactLogo, name: "React" },
@@ -26,7 +27,6 @@ const skillsData = [
 ];
 
 const Skills: React.FC = () => {
-  // Inline styles for the masking and scroll behavior
   const containerStyle = {
     maskImage:
       "linear-gradient(to right, transparent, black 30%, black 70%, transparent)",
@@ -37,6 +37,8 @@ const Skills: React.FC = () => {
   const scrollAnimation = {
     animation: "scroll 15s linear infinite",
   };
+
+  const { color } = useColor();
 
   return (
     <div
@@ -55,7 +57,9 @@ const Skills: React.FC = () => {
               alt={`${skill.name} logo`}
               className="w-12 h-12"
             />
-            <p className="text-white text-lg">{skill.name}</p>
+            <p className="text-lg" style={{ color: `${color.textColor}` }}>
+              {skill.name}
+            </p>
           </div>
         ))}
       </div>

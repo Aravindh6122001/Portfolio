@@ -1,13 +1,15 @@
 import InfoCard from "../components/InfoCard";
 import { Parallax } from "react-scroll-parallax";
-import CodeIcon from "@mui/icons-material/Code";
-import MobileIcon from "@mui/icons-material/Smartphone"; // Example mobile icon
-import DesktopIcon from "@mui/icons-material/DesktopWindows"; // Example desktop icon
 import { useState } from "react";
 import WorkingGif from "../assets/gif/Working.gif";
+import MobApp from "../assets/svg/mobile.svg";
+import WebAppp from "../assets/svg/webProcess.svg";
+
+import { useColor } from "../contexts/ColorContext";
 
 const Platform = () => {
-  const [progress, setProgress] = useState(0); // Track scroll progress
+  const [progress, setProgress] = useState(0);
+  const { color } = useColor();
   const title = `Multi-Platform Solutions`;
   const description = `Specializing in the development of cutting-edge, high-performance
         applications for both mobile and web platforms. Ensuring seamless user
@@ -24,34 +26,34 @@ const Platform = () => {
           <div
             className="spinner"
             style={{
-              width: "200px", // Set the width of the circle
-              height: "200px", // Set the height of the circle
+              width: "260px", // Set the width of the circle
+              height: "260px", // Set the height of the circle
               borderRadius: "50%", // Make it circular
               backgroundColor: "transparent", // Transparent background
-              border: "2px solid white", // White border
+              border: `2px solid ${color.textColor}`, // Border color
               position: "relative", // Position relative for inner elements
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              transition: "transform 0.1s ease-out", // Smooth transition for rotation
-              transform: `rotate(${progress * 720}deg)`, // Rotate based on scroll progress
+              transition: "transform 0.1s ease-out",
             }}
           >
             {/* Centered Working Gif */}
             <img
               src={WorkingGif}
-              width={150}
-              height={150}
+              width={200}
+              height={200}
               style={{
                 position: "absolute", // Position the image absolutely
                 top: "50%", // Center vertically
                 left: "50%", // Center horizontally
-                transform: "translate(-50%, -50%)", // Adjust position to truly center the image
+                transform: `translate(-50%, -50%) rotate(${progress * 720}deg)`, // Rotate based on scroll progress
                 zIndex: 1, // Ensure the image is above the circle
               }}
               alt="Working animation"
             />
-            {/* Rotating Icons along the border */}
+
+            {/* Fixed Icons along the border */}
             <div
               style={{
                 position: "absolute",
@@ -68,20 +70,30 @@ const Platform = () => {
                   position: "absolute",
                   top: "0",
                   left: "50%",
-                  transform: `translate(-50%, -100%) `, // Top position
+                  transform: `translate(-80%, -80%)`,
                 }}
               >
-                <MobileIcon style={{ fontSize: "30px" }} />
+                <img
+                  src={MobApp}
+                  width={200}
+                  height={200}
+                  alt="Mobile App Icon"
+                />
               </div>
               <div
                 style={{
                   position: "absolute",
                   bottom: "0",
                   left: "50%",
-                  transform: `translate(-50%, 100%)`, // Bottom position
+                  transform: `translate(-10%, 50%)`, // Center the icon
                 }}
               >
-                <DesktopIcon style={{ fontSize: "30px" }} />
+                <img
+                  src={WebAppp}
+                  width={200}
+                  height={200}
+                  alt="Web App Icon"
+                />
               </div>
             </div>
           </div>
