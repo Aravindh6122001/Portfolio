@@ -21,7 +21,7 @@ const LandingPage = () => {
     <>
       <ParallaxProvider>
         {/* Greeting Section with Parallax Effect */}
-        <Parallax>
+        <Parallax id="home">
           <Greeting />
         </Parallax>
 
@@ -31,6 +31,7 @@ const LandingPage = () => {
           component="h2"
           fontWeight={500}
           sx={headerStyle}
+          id="about"
         >
           About me
         </Typography>
@@ -45,6 +46,7 @@ const LandingPage = () => {
           component="h2"
           fontWeight={500}
           sx={headerStyle}
+          id="works"
         >
           Works
         </Typography>
@@ -57,6 +59,7 @@ const LandingPage = () => {
           component="h2"
           fontWeight={500}
           sx={headerStyle}
+          id="contact"
         >
           Wanna be my Friend
         </Typography>

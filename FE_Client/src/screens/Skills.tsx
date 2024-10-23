@@ -64,7 +64,6 @@ const Skills: React.FC = () => {
         ))}
       </div>
 
-      {/* Inline styling for keyframes */}
       <style jsx>{`
         @keyframes scroll {
           0% {

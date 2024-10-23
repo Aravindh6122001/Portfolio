@@ -1,26 +1,27 @@
 import React from "react";
 import QuickLinks from "../components/QuickLinks";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { Email, GitHub, LinkedIn } from "@mui/icons-material"; // Import MUI icons
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info"; // Often used for 'About'
 import WorkIcon from "@mui/icons-material/Work";
 import DescriptionIcon from "@mui/icons-material/Description"; // Commonly used for 'Resume'
 
-import DiscordIcon from "../assets/svg/discordIcon.svg";
 import { useColor } from "../contexts/ColorContext";
+import { discord, email, github, linkedin } from "../constants";
+import DiscordIcon from "../assets/svg/DiscordIcon";
 
 const Footer = () => {
   const { color } = useColor();
 
   const quickLinks = [
-    { name: "Home", url: "/", sectionId: "homeSection", icon: HomeIcon },
-    { name: "About", url: "/about", sectionId: "aboutSection", icon: InfoIcon },
-    { name: "Works", url: "https://example.com", icon: WorkIcon },
+    { name: "Home", url: "home", sectionId: "home", icon: HomeIcon },
+    { name: "About", url: "about", sectionId: "about", icon: InfoIcon },
+    { name: "Works", url: "works", sectionId: "works", icon: WorkIcon },
     {
       name: "Resume",
-      url: "/about",
-      sectionId: "aboutSection",
+      url: "resume",
+      sectionId: "resume",
       icon: DescriptionIcon,
     },
   ];
@@ -28,23 +29,20 @@ const Footer = () => {
   const socialLinks = [
     {
       name: "LinkedIn",
-      url: "/about",
-      sectionId: "aboutSection",
+      url: linkedin,
       icon: LinkedIn,
     },
     {
       name: "Discord",
-      url: "https://discord.com",
+      url: discord,
       icon: () => (
-        <img
-          src={DiscordIcon}
-          alt="Discord"
-          style={{ width: "24px", height: "24px", color: "black" }}
-        />
+        <IconButton href={discord} target="_blank">
+          <DiscordIcon color={color.textColor} />
+        </IconButton>
       ),
     },
-    { name: "Github", url: "https://github.com/Aravindh6122001", icon: GitHub },
-    { name: "Gmail", url: "/", sectionId: "homeSection", icon: Email },
+    { name: "Github", url: github, icon: GitHub },
+    { name: "Gmail", url: email, icon: Email },
   ];
 
   const title =

@@ -3,6 +3,7 @@ import React from "react";
 
 import { Email, GitHub, LinkedIn } from "@mui/icons-material"; // Import MUI icons
 import { useColor } from "../contexts/ColorContext";
+import ResumeFile from "../assets/resume/resume.pdf";
 
 interface LinkTypes {
   title: string;
@@ -13,10 +14,28 @@ const QuickLinks: React.FC<LinkTypes> = ({ title, links }) => {
   const { color } = useColor();
 
   const handleLinkClick = (link: { url: string; sectionId?: string }) => {
+    if (!link.sectionId) {
+      window.open(link.url, "_blank");
+      return;
+    }
+
     if (link.sectionId) {
       const section = document.getElementById(link.sectionId);
+
+      if (link.sectionId === "resume") {
+        const link = document.createElement("a");
+        link.href = ResumeFile;
+        link.download = "Resume_AravindhKrishna.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
       if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+        const yOffset = window.innerWidth < 768 ? -50 : -10;
+        const yPosition =
+          section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: yPosition, behavior: "smooth" });
       }
     } else {
       window.location.href = link.url;
@@ -32,7 +51,8 @@ const QuickLinks: React.FC<LinkTypes> = ({ title, links }) => {
         <div
           key={index}
           onClick={() => handleLinkClick(link)}
-          className="flex items-center gap-2 cursor-pointer" // Flexbox for alignment
+          className="flex items-center gap-2 cursor-pointer "
+          style={{ alignItems: "center" }}
         >
           {link.icon && <link.icon sx={{ color: `${color.textColor}` }} />}{" "}
           {/* Render icon if exists */}

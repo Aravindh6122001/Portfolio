@@ -21,7 +21,7 @@ const Platform = () => {
       <div className="flex-1 p-4">
         <InfoCard title={title} description={description} />
       </div>
-      <div className="flex-1 flex justify-center items-center min-w-[300px] md:min-w-[400px] p-4">
+      <div className="flex-1 flex justify-center items-center min-w-[250px] md:min-w-[400px] p-4">
         <Parallax onProgressChange={(progress) => setProgress(progress)}>
           <div
             className="spinner"

@@ -39,7 +39,6 @@ const suggestions = [
 
 const Form = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [messageValue, setMessageValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(true);
   const { color } = useColor();
 
@@ -54,43 +53,41 @@ const Form = () => {
 
   const { fetchData } = useFetch("http://127.0.0.1:8000/messages/");
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data) => {
     setIsSubmitted(true);
     setShowSuggestions(false);
 
     // Send data to your endpoint
     const response = await fetchData("http://127.0.0.1:8000/messages/", {
-      // Replace with your actual endpoint
       method: "POST",
       body: {
         email: data.email,
-        message: messageValue,
+        message: data.message, // Directly use data.message
       },
     });
 
     // Handle the response if necessary
     if (response) {
-      // You can add logic here based on the response if needed
       console.log("Response from server:", response);
     }
 
     setTimeout(() => {
       setIsSubmitted(false);
       setValue("email", "");
-      setMessageValue("");
+      setValue("message", ""); // Reset message field using setValue
       setShowSuggestions(true);
     }, 2000);
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setMessageValue(suggestion);
+    setValue("message", suggestion);
     setShowSuggestions(false);
   };
 
   const descriptionLines = [
     {
       text: "Let's break the ice and start a conversation!",
-      variant: "h5", // Bigger size for the first line
+      variant: "h5",
     },
     {
       text: (
@@ -110,14 +107,19 @@ const Form = () => {
     },
     {
       text: "I'm here to make it easy and fun. Looking forward to connect!",
-      variant: "h6", // Smaller size for the last line
+      variant: "h6",
     },
   ];
 
+  const handleInputChange = (e) => {
+    if (e.target.value.length <= 1) {
+      setShowSuggestions(true);
+    }
+  };
+
   return (
-    <div className="w-full h-auto flex flex-wrap justify-between items-center">
-      <div className="w-[700px]">
-        {/* <InfoCard description={description} /> */}
+    <div className="w-full h-auto flex flex-wrap justify-between items-center ">
+      <div className="max-w-[900px]">
         <div className="flex flex-col gap-5 py-10">
           {descriptionLines.map((line, index) => (
             <Typography
@@ -143,12 +145,10 @@ const Form = () => {
               p: "20px",
               borderRadius: "15px",
               boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.1)",
-              maxWidth: 400,
+              maxWidth: 350,
               backgroundColor: "#f5f5f5",
             }}
           >
-            {/* Success Message */}
-
             {/* Email Input */}
             <div style={{ animation: errors.email ? `${shake} 0.5s` : "none" }}>
               <InputBase
@@ -178,7 +178,7 @@ const Form = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  border: errors.message ? "1px solid red" : "1px solid #ccc", // Border around both input and button
+                  border: errors.message ? "1px solid red" : "1px solid #ccc",
                   borderRadius: "10px",
                   padding: "5px",
                   backgroundColor: "#fff",
@@ -188,13 +188,19 @@ const Form = () => {
                 <InputBase
                   sx={{
                     flexGrow: 1,
-                    border: "none",
                     p: "10px",
                   }}
                   placeholder="Message"
-                  value={messageValue} // Keeps the message field editable
-                  onChange={(e) => setMessageValue(e.target.value)} // Updates state correctly
+                  {...register("message", {
+                    required: "Message is required",
+                    minLength: {
+                      value: 2,
+                      message: "Message is too short (minimum is 2 characters)",
+                    },
+                    onChange: handleInputChange,
+                  })}
                 />
+
                 <IconButton
                   type="submit"
                   sx={{
@@ -206,7 +212,6 @@ const Form = () => {
                     borderColor: "#ccc",
                     borderWidth: "2px",
                   }}
-                  // disabled={!isValid}
                 >
                   <EastIcon />
                 </IconButton>
@@ -214,27 +219,18 @@ const Form = () => {
             </div>
 
             <div className="flex items-center gap-5">
-              {errors.email && (
+              {isSubmitted && errors.message && (
                 <Typography variant="body2" color="error">
-                  {errors.email.message}
+                  {errors.message.message}
                 </Typography>
               )}
-
-              {isSubmitted &&
-                errors.message && ( // Show error only when form is submitted
-                  <Typography variant="body2" color="error">
-                    {errors.message.message}
-                  </Typography>
-                )}
             </div>
 
             {/* Suggestion Chips */}
             <Box
               sx={{
-                height: "100px", // Maintain box height
-                //   overflow: "hidden", // Prevent shrinking after disappearance
-                transition: "height 10s ease", // Smooth transition
-                //   backgroundColor: "red",
+                height: "100px",
+                transition: "height 10s ease",
               }}
             >
               {isSubmitted && (
@@ -245,12 +241,11 @@ const Form = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    //   p: 2,
-                    animation: "fade-in 0.5s ease",
+                    height: "100px",
                   }}
                 >
-                  <DoneIcon sx={{ mr: 1 }} />
-                  Message Sent.
+                  {/* <DoneIcon sx={{ mr: 1 }} /> */}
+                  Message Sent 👍
                 </Typography>
               )}
               <Fade in={showSuggestions} timeout={500}>
