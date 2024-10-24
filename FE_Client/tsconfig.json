@@ -1,20 +1,19 @@
 {
-  // "files": [],
-  // "references": [
-  //   { "path": "./tsconfig.app.json" },
-  //   { "path": "./tsconfig.node.json" }
-  // ],
   "compilerOptions": {
-    "target": "esnext", // or "es6"
-    "module": "esnext",
-    "jsx": "react-jsx", // use "react" if you're using React 17 or earlier
+    "target": "ES2022", // or "ESNext"
+    "lib": ["DOM", "ES2022"], // Include necessary libraries
+    "module": "ESNext",
+    "jsx": "react-jsx", // Use "react" if you're using React 17 or earlier
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node", // Use Node resolution strategy
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "outDir": "./dist", // Specify output directory for compiled files
+    "noEmit": false // Ensure this is false to allow emitting files
   },
-  "include": ["src"]
+  "include": ["src/**/*"], // Ensure all source files are included
+  "exclude": ["node_modules", "dist"] // Exclude unnecessary directories
 }
