@@ -51,20 +51,25 @@ const Form = () => {
     mode: "onChange",
   });
 
-  const { fetchData } = useFetch("http://127.0.0.1:8000/messages/");
+  const { fetchData } = useFetch(
+    `${import.meta.env.VITE_BACKEND_URL}/messages/`
+  );
 
   const onSubmit = async (data: any) => {
     setIsSubmitted(true);
     setShowSuggestions(false);
 
     // Send data to your endpoint
-    const response = await fetchData("http://127.0.0.1:8000/messages/", {
-      method: "POST",
-      body: {
-        email: data.email,
-        message: data.message, // Directly use data.message
-      },
-    });
+    const response = await fetchData(
+      `${import.meta.env.VITE_BACKEND_URL}/messages/`,
+      {
+        method: "POST",
+        body: {
+          email: data.email,
+          message: data.message, // Directly use data.message
+        },
+      }
+    );
 
     // Handle the response if necessary
     if (response) {
