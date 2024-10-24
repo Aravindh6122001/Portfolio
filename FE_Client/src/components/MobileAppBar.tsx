@@ -93,7 +93,7 @@ const MobileAppBar: React.FC<MobileAppBarProps> = ({
           <List>
             {navItems.map((item) => (
               <ListItem
-                button
+                component="button"
                 key={item}
                 onClick={() => handleNavClick(item.toLowerCase())}
               >

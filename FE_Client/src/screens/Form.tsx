@@ -53,7 +53,7 @@ const Form = () => {
 
   const { fetchData } = useFetch("http://127.0.0.1:8000/messages/");
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setIsSubmitted(true);
     setShowSuggestions(false);
 
@@ -79,7 +79,7 @@ const Form = () => {
     }, 2000);
   };
 
-  const handleSuggestionClick = (suggestion) => {
+  const handleSuggestionClick = (suggestion: any) => {
     setValue("message", suggestion);
     setShowSuggestions(false);
   };
@@ -111,7 +111,7 @@ const Form = () => {
     },
   ];
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     if (e.target.value.length <= 1) {
       setShowSuggestions(true);
     }
@@ -124,7 +124,7 @@ const Form = () => {
           {descriptionLines.map((line, index) => (
             <Typography
               key={index}
-              variant={line.variant}
+              variant={line.variant as "h2"}
               component="h2"
               className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl"
               sx={{
@@ -221,7 +221,7 @@ const Form = () => {
             <div className="flex items-center gap-5">
               {isSubmitted && errors.message && (
                 <Typography variant="body2" color="error">
-                  {errors.message.message}
+                  {"Enter Valid Email address"}
                 </Typography>
               )}
             </div>

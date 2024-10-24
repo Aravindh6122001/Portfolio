@@ -1,10 +1,24 @@
+import React, { CSSProperties } from "react";
+
 import { BorderColor } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useColor } from "../contexts/ColorContext";
 
-const ImageCard = ({ backdrop, name, description, navigateTo }) => {
+interface ImageCardProps {
+  backdrop: any;
+  name: string;
+  description: string;
+  navigateTo: any;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({
+  backdrop,
+  name,
+  description,
+  navigateTo,
+}) => {
   const { color } = useColor();
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
@@ -16,7 +30,11 @@ const ImageCard = ({ backdrop, name, description, navigateTo }) => {
     navigate(navigateTo);
   };
 
-  const styles = {
+  const styles: {
+    card: CSSProperties;
+    title: CSSProperties;
+    description: CSSProperties;
+  } = {
     card: {
       position: "relative",
       display: "flex",
@@ -67,8 +85,6 @@ const ImageCard = ({ backdrop, name, description, navigateTo }) => {
       style={{
         ...styles.card,
         backgroundImage: `url(${backdrop})`,
-        // color: hover ? "10px" : "0px",
-        // backgroundColor: hover ? "#EDEDED" : "none",
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

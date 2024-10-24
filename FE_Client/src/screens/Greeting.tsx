@@ -12,7 +12,9 @@ const Greeting = () => {
   data cleansing and storage system, a transportation booking 
   platform, and a goal-tracking application.`;
 
-  const isXsOrSmOrMd = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isXsOrSmOrMd = useMediaQuery((theme: any) =>
+    theme.breakpoints.down("md")
+  );
 
   const variant = isXsOrSmOrMd ? "h5" : "h4";
 

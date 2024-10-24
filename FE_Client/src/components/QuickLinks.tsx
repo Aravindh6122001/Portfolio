@@ -7,7 +7,7 @@ import ResumeFile from "../assets/resume/resume.pdf";
 
 interface LinkTypes {
   title: string;
-  links: { name: string; url: string; sectionId?: string; icon?: React.FC }[]; // Made icon optional
+  links: { name: string; url: string; sectionId?: string; icon?: any }[]; // Made icon optional
 }
 
 const QuickLinks: React.FC<LinkTypes> = ({ title, links }) => {
@@ -54,7 +54,7 @@ const QuickLinks: React.FC<LinkTypes> = ({ title, links }) => {
           className="flex items-center gap-2 cursor-pointer "
           style={{ alignItems: "center" }}
         >
-          {link.icon && <link.icon sx={{ color: `${color.textColor}` }} />}{" "}
+          {link.icon && <link.icon style={{ color: `${color.textColor}` }} />}{" "}
           {/* Render icon if exists */}
           <Typography variant="body1" color={`${color.textColor}`}>
             {link.name}
