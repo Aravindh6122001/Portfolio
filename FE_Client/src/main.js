@@ -1,0 +1,11 @@
+import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+// import App from "./App.tsx";
+import { AppRoutes } from "./routes";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme/theme";
+import "./index.css";
+import { ColorProvider } from "./contexts/ColorContext";
+createRoot(document.getElementById("root")).render(_jsx(_Fragment, { children: _jsx(StrictMode, { children: _jsx(ColorProvider, { children: _jsx(BrowserRouter, { children: _jsx(ThemeProvider, { theme: theme, children: _jsx(AppRoutes, {}) }) }) }) }) }));

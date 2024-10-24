@@ -9,8 +9,7 @@ app = FastAPI()
 
 # CORS configuration
 origins = [
-    "http://localhost:5173",  # Allow your frontend
-    # You can add more origins as needed
+    "http://localhost:5173", 
 ]
 
 # Add CORS middleware
