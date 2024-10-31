@@ -1,11 +1,11 @@
 import React from "react";
 import QuickLinks from "../components/QuickLinks";
 import { IconButton, Typography } from "@mui/material";
-import { Email, GitHub, LinkedIn } from "@mui/icons-material"; // Import MUI icons
+import { Email, GitHub, LinkedIn } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info"; // Often used for 'About'
+import InfoIcon from "@mui/icons-material/Info";
 import WorkIcon from "@mui/icons-material/Work";
-import DescriptionIcon from "@mui/icons-material/Description"; // Commonly used for 'Resume'
+import DescriptionIcon from "@mui/icons-material/Description";
 
 import { useColor } from "../contexts/ColorContext";
 import { discord, email, github, linkedin } from "../constants";
@@ -35,11 +35,7 @@ const Footer = () => {
     {
       name: "Discord",
       url: discord,
-      icon: () => (
-        <IconButton href={discord} target="_blank">
-          <DiscordIcon color={color.textColor} />
-        </IconButton>
-      ),
+      icon: () => <DiscordIcon color={color.textColor} />,
     },
     { name: "Github", url: github, icon: GitHub },
     { name: "Gmail", url: email, icon: Email },
@@ -57,9 +53,21 @@ const Footer = () => {
       style={{ backgroundColor: `${color.bgColor}` }}
     >
       <div className="flex flex-col justify-center gap-3 w-[400px]">
-        <Typography variant="h6" fontWeight={600} color={`${color.textColor}`}>
-          {title}
-        </Typography>
+        <a
+          href="https://vaadin.com/blog/why-full-stack-development-is-the-future-of-web-applications" // Your actual URL
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none", color: color.textColor }}
+        >
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            color={`${color.textColor}`}
+          >
+            {title}
+          </Typography>
+        </a>
+
         <Typography variant="body2" color={`${color.textColor}`}>
           {description}
         </Typography>

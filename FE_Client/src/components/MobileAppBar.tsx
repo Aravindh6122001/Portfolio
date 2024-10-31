@@ -79,13 +79,13 @@ const MobileAppBar: React.FC<MobileAppBarProps> = ({
         onClose={() => toggleDrawer(false)}
       >
         <Box
-          sx={{ width: 250, backgroundColor: `${color.textColor}` }}
+          sx={{ width: 250, backgroundColor: `${color.bgColor}` }}
           className="flex flex-col h-full gap-10"
         >
           <Box className="flex justify-between items-center">
             <IconButton
               onClick={() => toggleDrawer(false)}
-              sx={{ color: `${color.bgColor}` }}
+              sx={{ color: `${color.textColor}` }}
             >
               <CloseIcon />
             </IconButton>
@@ -97,18 +97,21 @@ const MobileAppBar: React.FC<MobileAppBarProps> = ({
                 key={item}
                 onClick={() => handleNavClick(item.toLowerCase())}
               >
-                <ListItemText primary={item} />
+                <ListItemText
+                  primary={item}
+                  sx={{ color: `${color.textColor}` }}
+                />
               </ListItem>
             ))}
-            <Divider sx={{ borderColor: `${color.bgColor}`, my: 2 }} />
+            <Divider sx={{ borderColor: `${color.textColor}`, my: 2 }} />
             <Box className="flex space-x-4">
-              <IconButton href={email} sx={{ color: `${color.bgColor}` }}>
+              <IconButton href={email} sx={{ color: `${color.textColor}` }}>
                 <Email />
               </IconButton>
-              <IconButton href={linkedin} sx={{ color: `${color.bgColor}` }}>
+              <IconButton href={linkedin} sx={{ color: `${color.textColor}` }}>
                 <LinkedIn />
               </IconButton>
-              <IconButton href={github} sx={{ color: `${color.bgColor}` }}>
+              <IconButton href={github} sx={{ color: `${color.textColor}` }}>
                 <GitHub />
               </IconButton>
               <IconButton href={discord} target="_blank">

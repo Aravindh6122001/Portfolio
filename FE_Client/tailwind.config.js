@@ -29,11 +29,14 @@ export default {
       spacing: {
         128: "32rem",
         144: "36rem",
+        // Add additional spacing sizes if needed
+        18: "4.5rem", // Example size for gaps
       },
       screens: {
         xs: "350px",
         sm: "640px",
         md: "720px",
+        lg: "960px", // Optional, for larger screens
       },
       colors: {
         bgDark: "#242424",

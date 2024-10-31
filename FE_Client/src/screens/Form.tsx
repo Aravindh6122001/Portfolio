@@ -66,12 +66,11 @@ const Form = () => {
         method: "POST",
         body: {
           email: data.email,
-          message: data.message, // Directly use data.message
+          message: data.message,
         },
       }
     );
 
-    // Handle the response if necessary
     if (response) {
       console.log("Response from server:", response);
     }
@@ -79,7 +78,7 @@ const Form = () => {
     setTimeout(() => {
       setIsSubmitted(false);
       setValue("email", "");
-      setValue("message", ""); // Reset message field using setValue
+      setValue("message", "");
       setShowSuggestions(true);
     }, 2000);
   };
@@ -91,20 +90,21 @@ const Form = () => {
 
   const descriptionLines = [
     {
-      text: "Let's break the ice and start a conversation!",
+      text: "Let's break the ice and have a chat !!",
       variant: "h5",
     },
     {
       text: (
         <>
-          Whether you're looking for someone to chat about your favorite movies,
-          share ideas, or just say
+          Whether you want to talk about your favorite movies 🎬, share cool
+          ideas, dive into the recent industry trend or just say ,
           <Typography
             variant="h4"
             component="span"
             sx={{ display: "inline", color: `${color.textColor}` }}
           >
-            {"____"}hello
+            {" "}
+            Hello 👋
           </Typography>
         </>
       ),
@@ -123,8 +123,8 @@ const Form = () => {
   };
 
   return (
-    <div className="w-full h-auto flex flex-wrap justify-between items-center ">
-      <div className="max-w-[900px]">
+    <div className="w-full h-auto flex justify-center items-center flex-wrap gap-10">
+      <div className="max-w-[900px] ">
         <div className="flex flex-col gap-5 py-10">
           {descriptionLines.map((line, index) => (
             <Typography

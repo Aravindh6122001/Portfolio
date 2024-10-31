@@ -55,7 +55,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
         ? "0px 10px 20px rgba(0,0,0,0.2)"
         : "0px 5px 10px rgba(0,0,0,0.1)",
       transform: hover ? "scale(1.05)" : "scale(1)",
-      opacity: hover ? 0.7 : 1, // Change opacity on hover
+      opacity: 1, // Change opacity on hover
     },
     title: {
       position: "absolute",
@@ -65,8 +65,6 @@ const ImageCard: React.FC<ImageCardProps> = ({
       fontWeight: "bold",
       transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
       transform: hover ? "translateY(-150px)" : "translateY(0)", // Move title up to the top of the description on hover
-      // opacity: hover ? 0 : 1, // Fade out title on hover
-      // backgroundColor: "blur",
     },
     description: {
       position: "absolute",

@@ -6,9 +6,9 @@ import stripesSvg from "../assets/svg/stripes.svg"; // Import the SVG
 import { useColor } from "../contexts/ColorContext";
 
 const Greeting = () => {
-  const greeting = `Hi, I'm Aravindh :)`;
-  const shortNote = `A fullstack developer with 1+ years 
-  of experience building user-friendly solutions, including a 
+  const greeting = `Hi, I'm Aravindh`;
+  const shortNote = `Full Stack Developer with over 1 year of experience in designing and implementing
+   user-friendly solutions, including a 
   data cleansing and storage system, a transportation booking 
   platform, and a goal-tracking application.`;
 
@@ -16,10 +16,14 @@ const Greeting = () => {
     theme.breakpoints.down("md")
   );
 
-  const variant = isXsOrSmOrMd ? "h5" : "h4";
+  const isXsOrSm = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+  const isMd = useMediaQuery((theme: any) => theme.breakpoints.up("md")); // Check for md screen size
+
+  const greetingVariant = isXsOrSm ? "h4" : "h2";
+  const descriptionVariant = isXsOrSm ? "h5" : "h4";
 
   const [scrollY, setScrollY] = useState(0);
-  const { color } = useColor(); // Use the color context
+  const { color } = useColor();
 
   const handleScroll = () => {
     setScrollY(window.scrollY);
@@ -50,19 +54,18 @@ const Greeting = () => {
   return (
     <div
       className={`flex flex-col justify-center items-center w-full ${
-        isXsOrSmOrMd && "h-[80vh]"
-      } h-[100vh] xs:mt-24 sm:mt-0 overflow-hidden`}
+        isXsOrSmOrMd ? "h-[80vh]" : "h-[100vh]"
+      } xs:mt-24 sm:mt-0 overflow-hidden`}
     >
       {/* Avatar Container with Stripes SVG */}
-      <div className="relative flex justify-center items-center">
-        {/* Stripes SVG Background behind the Avatar */}
+      <div className="relative flex justify-center items-center mb-4 xs:mb-2">
         <img
           src={stripesSvg}
           alt="Stripes"
           style={{
             position: "absolute",
-            width: "fit", // Adjust the size to fit the avatar
-            height: "110%", // Adjust the size to fit the avatar
+            width: "fit",
+            height: "110%",
             top: 0,
             left: 0,
             zIndex: -1,
@@ -75,29 +78,35 @@ const Greeting = () => {
           alt="Aravindh"
           src={heroImage}
           sx={{
-            width: { xs: 200, sm: 240, md: 270 }, // Responsive avatar size based on your screens
+            width: { xs: 200, sm: 240, md: 270 },
             height: { xs: 200, sm: 240, md: 270 },
             borderColor: `${color.textColor}`,
             borderWidth: 1,
             objectFit: "contain",
             opacity: avatarOpacity,
             transition: "opacity 0.2s ease-in-out",
-            position: "relative", // ensures it stays above the background
+            position: "relative",
             zIndex: 1,
           }}
         />
       </div>
 
       {/* Greeting and Short Note Section */}
-      <div className="flex flex-col xs:gap-24 sm:gap-6 w-[90%] md:w-[70%] overflow-hidden ">
+      <div
+        className={`flex flex-col ${
+          isXsOrSm ? "gap-4" : isMd ? "gap-12" : "gap-6" // Adjust gap for md screens
+        } w-[90%] md:w-[70%] overflow-hidden`}
+      >
         <Parallax easing="easeOutQuad" translateY={[-100, 70]} speed={10}>
           <Typography
+            variant={greetingVariant}
             ref={shortParallex.ref}
-            variant="h2"
             component="h2"
             align="center"
             style={greetingStyle}
-            className="text-base xs:text-lg sm:text-3xl md:text-4xl lg:text-5xl font-bold"
+            className={`text-base xs:text-lg sm:text-3xl md:text-4xl lg:text-5xl font-bold ${
+              isMd ? "text-5xl" : ""
+            }`} // Adjust text size for md screens
             sx={{
               color: `${color.textColor}`,
             }}
@@ -107,10 +116,12 @@ const Greeting = () => {
         </Parallax>
 
         <Typography
-          variant={variant}
+          variant={descriptionVariant}
           component="h4"
           align="center"
-          className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-normal mt-2"
+          className={`text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-normal mt-2 ${
+            isMd ? "text-2xl" : ""
+          }`} // Adjust text size for md screens
           style={{
             opacity: shortNoteOpacity,
             transition: "opacity 0.2s ease-in-out",

@@ -6,6 +6,7 @@ import MobApp from "../assets/svg/mobile.svg";
 import WebAppp from "../assets/svg/webProcess.svg";
 
 import { useColor } from "../contexts/ColorContext";
+import { useMediaQuery } from "@mui/material";
 
 const Platform = () => {
   const [progress, setProgress] = useState(0);
@@ -16,8 +17,10 @@ const Platform = () => {
         experiences, optimized performance, and scalable solutions to meet the
         demands of modern digital ecosystems.`;
 
+  const isXsOrSm = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+
   return (
-    <div className="w-full h-auto flex flex-wrap items-center justify-center">
+    <div className="w-full h-auto flex flex-wrap items-center justify-center xs:gap-8">
       <div className="flex-1 p-4">
         <InfoCard title={title} description={description} />
       </div>
