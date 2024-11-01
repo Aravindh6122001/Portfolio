@@ -3,7 +3,7 @@ import { Box, Toolbar, IconButton, useMediaQuery } from "@mui/material";
 import { useColor } from "../contexts/ColorContext";
 import MobileAppBar from "./MobileAppBar";
 import WebAppBar from "./WebAppBar";
-import ResumeFile from "../assets/resume/resume.pdf";
+import ResumeFile from "../assets/resume/AravindhKrishna_Resume.pdf";
 
 interface Props {
   window?: () => Window;
@@ -24,7 +24,7 @@ const AppBar = (props: Props) => {
     if (sectionId === "resume") {
       const link = document.createElement("a");
       link.href = ResumeFile;
-      link.download = "Resume_AravindhKrishna.pdf";
+      link.download = "AravindhKrishna Resume.pdf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

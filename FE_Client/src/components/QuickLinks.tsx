@@ -3,7 +3,7 @@ import React from "react";
 
 import { Email, GitHub, LinkedIn } from "@mui/icons-material"; // Import MUI icons
 import { useColor } from "../contexts/ColorContext";
-import ResumeFile from "../assets/resume/resume.pdf";
+import ResumeFile from "../assets/resume/AravindhKrishna_Resume.pdf";
 
 interface LinkTypes {
   title: string;
@@ -25,7 +25,7 @@ const QuickLinks: React.FC<LinkTypes> = ({ title, links }) => {
       if (link.sectionId === "resume") {
         const link = document.createElement("a");
         link.href = ResumeFile;
-        link.download = "Resume_AravindhKrishna.pdf";
+        link.download = "AravindhKrishna Resume.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

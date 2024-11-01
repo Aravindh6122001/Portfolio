@@ -123,8 +123,8 @@ const Form = () => {
   };
 
   return (
-    <div className="w-full h-auto flex justify-center items-center flex-wrap gap-10">
-      <div className="max-w-[900px] ">
+    <div className="w-full h-auto flex justify-around items-center gap-10 flex-wrap">
+      <div className="max-w-[900px]">
         <div className="flex flex-col gap-5 py-10">
           {descriptionLines.map((line, index) => (
             <Typography

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Typography, useMediaQuery } from "@mui/material";
 import { Parallax, useParallax } from "react-scroll-parallax";
-import heroImage from "../assets/jpg/HeroImage.jpg";
+import heroImageDark from "../assets/jpg/HeroImage_dark.png";
+import heroImageLight from "../assets/jpg/HeroImage_light.png";
 import stripesSvg from "../assets/svg/stripes.svg"; // Import the SVG
 import { useColor } from "../contexts/ColorContext";
 
@@ -76,17 +77,19 @@ const Greeting = () => {
         {/* Avatar Section */}
         <Avatar
           alt="Aravindh"
-          src={heroImage}
+          src={color.bgColor === "#242424" ? heroImageDark : heroImageLight}
           sx={{
-            width: { xs: 200, sm: 240, md: 270 },
-            height: { xs: 200, sm: 240, md: 270 },
+            width: { xs: 200, sm: 240, md: 280 },
+            height: { xs: 200, sm: 240, md: 280 },
             borderColor: `${color.textColor}`,
-            borderWidth: 1,
-            objectFit: "contain",
+            // objectFit: "contain",
             opacity: avatarOpacity,
             transition: "opacity 0.2s ease-in-out",
             position: "relative",
             zIndex: 1,
+            borderWidth: 2,
+            objectFit: "cover",
+            objectPosition: "center",
           }}
         />
       </div>
