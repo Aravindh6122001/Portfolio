@@ -1,13 +1,10 @@
-import React, { CSSProperties } from "react";
-
-import { BorderColor } from "@mui/icons-material";
-import { Typography } from "@mui/material";
-import { useState } from "react";
+import React, { CSSProperties, useState } from "react";
+import { Typography, Skeleton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useColor } from "../contexts/ColorContext";
 
 interface ImageCardProps {
-  backdrop: any;
+  backdrop: string;
   name: string;
   description: string;
   navigateTo: any;
@@ -19,15 +16,20 @@ const ImageCard: React.FC<ImageCardProps> = ({
   description,
   navigateTo,
 }) => {
-  const { color } = useColor();
   const [hover, setHover] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   const navigate = useNavigate();
+  const color = useColor();
 
   const handleMouseEnter = () => setHover(true);
   const handleMouseLeave = () => setHover(false);
 
   const handleClick = () => {
     navigate(navigateTo);
+  };
+
+  const handleImageLoad = () => {
+    setIsLoading(false); // Hide skeleton when image is loaded
   };
 
   const styles: {
@@ -49,31 +51,28 @@ const ImageCard: React.FC<ImageCardProps> = ({
       backgroundSize: "cover",
       backgroundPosition: "center",
       transition: "transform 0.4s ease-in-out, box-shadow 0.3s ease-in-out",
-      // BorderWidth: hover ? "10px" : "0px",
-      // BorderColor: hover ? "pink" : "none",
       boxShadow: hover
         ? "0px 10px 20px rgba(0,0,0,0.2)"
         : "0px 5px 10px rgba(0,0,0,0.1)",
       transform: hover ? "scale(1.05)" : "scale(1)",
-      opacity: 1, // Change opacity on hover
     },
     title: {
       position: "absolute",
-      bottom: "10px", // Keep the title at the bottom
+      bottom: "10px",
       left: "20px",
-      color: "black", // Change text color to black for better visibility
+      color: "black",
       fontWeight: "bold",
       transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
-      transform: hover ? "translateY(-150px)" : "translateY(0)", // Move title up to the top of the description on hover
+      transform: hover ? "translateY(-150px)" : "translateY(0)",
     },
     description: {
       position: "absolute",
-      bottom: "10px", // Position it just above the bottom of the card
-      color: "black", // Change text color to white for better visibility
-      opacity: hover ? 1 : 0, // Show description on hover
-      transform: hover ? "translateY(0)" : "translateY(10px)", // Slide up the description
+      bottom: "10px",
+      color: "black",
+      opacity: hover ? 1 : 0,
+      transform: hover ? "translateY(0)" : "translateY(10px)",
       transition: "opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
-      backgroundColor: `#FFFFFF`,
+      backgroundColor: "#FFFFFF",
       padding: "5px",
     },
   };
@@ -82,12 +81,43 @@ const ImageCard: React.FC<ImageCardProps> = ({
     <div
       style={{
         ...styles.card,
-        backgroundImage: `url(${backdrop})`,
+        backgroundImage: isLoading ? "none" : `url(${backdrop})`, // Hide background while loading
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
+      {/* Show Skeleton while loading */}
+      {isLoading && (
+        <Skeleton
+          variant="rectangular"
+          animation="wave"
+          width={350}
+          height={300}
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: 1,
+            borderRadius: "20px",
+            bgcolor: "rgba(255, 255, 255, 0.1)",
+            borderWidth: 1,
+            borderColor: `${color.textColor}`,
+          }}
+        />
+      )}
+
+      {/* Image with onLoad to handle loading state */}
+      <img
+        src={backdrop}
+        alt={name}
+        onLoad={handleImageLoad}
+        style={{
+          display: "none", // Hide the actual img tag, only using it to detect load
+        }}
+      />
+
+      {/* Card content */}
       <Typography variant="h4" style={styles.title}>
         {name}
       </Typography>

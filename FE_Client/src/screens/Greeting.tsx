@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Typography, useMediaQuery } from "@mui/material";
+import { Avatar, Skeleton, Typography, useMediaQuery } from "@mui/material";
 import { Parallax, useParallax } from "react-scroll-parallax";
 import heroImageDark from "../assets/jpg/HeroImage_dark.png";
 import heroImageLight from "../assets/jpg/HeroImage_light.png";
@@ -52,6 +52,18 @@ const Greeting = () => {
     shouldAlwaysCompleteAnimation: true,
   });
 
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
+  // Update loading state whenever bgColor changes
+  useEffect(() => {
+    setIsImageLoading(true); // Show skeleton while image is updating
+  }, [color.bgColor]);
+
+  // Handle image load
+  const handleImageLoad = () => {
+    setIsImageLoading(false); // Hide skeleton after image loads
+  };
+
   return (
     <div
       className={`flex flex-col justify-center items-center w-full ${
@@ -75,12 +87,12 @@ const Greeting = () => {
         />
 
         {/* Avatar Section */}
-        <Avatar
+        {/* <Avatar
           alt="Aravindh"
           src={color.bgColor === "#242424" ? heroImageDark : heroImageLight}
           sx={{
-            width: { xs: 200, sm: 240, md: 280 },
-            height: { xs: 200, sm: 240, md: 280 },
+            width: { xs: 200, sm: 240, md: 300 },
+            height: { xs: 200, sm: 240, md: 300 },
             borderColor: `${color.textColor}`,
             // objectFit: "contain",
             opacity: avatarOpacity,
@@ -91,7 +103,44 @@ const Greeting = () => {
             objectFit: "cover",
             objectPosition: "center",
           }}
-        />
+        /> */}
+
+        {/* Avatar Section with Skeleton */}
+        <div className="relative flex justify-center items-center mb-4 xs:mb-2">
+          {isImageLoading && (
+            <Skeleton
+              variant="circular"
+              animation="wave"
+              sx={{
+                width: { xs: 200, sm: 240, md: 280 },
+                height: { xs: 200, sm: 240, md: 280 },
+                position: "absolute",
+                zIndex: 0,
+                bgcolor: "rgba(255, 255, 255, 0.1)",
+                borderWidth: 2,
+                borderColor: `${color.textColor}`,
+              }}
+            />
+          )}
+
+          <Avatar
+            alt="Aravindh"
+            src={color.bgColor === "#242424" ? heroImageDark : heroImageLight}
+            onLoad={handleImageLoad} // Trigger hiding skeleton when loaded
+            sx={{
+              width: { xs: 200, sm: 240, md: 280 },
+              height: { xs: 200, sm: 240, md: 280 },
+              borderColor: `${color.textColor}`,
+              opacity: isImageLoading ? 0 : 1, // Hide Avatar until loaded
+              transition: "opacity 0.3s ease-in-out",
+              position: "relative",
+              zIndex: 1,
+              borderWidth: 2,
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+        </div>
       </div>
 
       {/* Greeting and Short Note Section */}

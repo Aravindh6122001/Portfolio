@@ -3,9 +3,6 @@ import image1 from "../assets/jpg/image1.jpg";
 import image2 from "../assets/jpg/image2.jpg";
 import image3 from "../assets/jpg/image3.jpg";
 
-import Logo from "../assets/svg/androidStudio.svg";
-// import { Parallax } from "react-scroll-parallax";
-
 const Works = () => {
   return (
     <div className="h-[auto] flex flex-wrap justify-around items-center gap-5 py-10 mb-5">
