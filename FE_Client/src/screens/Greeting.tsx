@@ -37,7 +37,6 @@ const Greeting = () => {
     };
   }, []);
 
-  const avatarOpacity = Math.max(1 - scrollY / 20, 0);
   const shortNoteOpacity = Math.max(1 - scrollY / 20, 0);
 
   const greetingStyle = {
@@ -52,16 +51,44 @@ const Greeting = () => {
     shouldAlwaysCompleteAnimation: true,
   });
 
-  const [isImageLoading, setIsImageLoading] = useState(true);
-
   // Update loading state whenever bgColor changes
   useEffect(() => {
     setIsImageLoading(true); // Show skeleton while image is updating
   }, [color.bgColor]);
 
-  // Handle image load
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [avatarOpacity, setAvatarOpacity] = useState(0); // Set initial opacity to 0
+
+  // Handle scroll to set opacity based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Update loader state when background color changes
+  useEffect(() => {
+    setIsImageLoading(true); // Show loader
+    setAvatarOpacity(0); // Set opacity to 0
+  }, [color.bgColor]);
+
+  // Handle avatar opacity based on scroll position
+  useEffect(() => {
+    const updateOpacity = () => {
+      const newOpacity = scrollY < 300 ? Math.max(1 - scrollY / 200, 0) : 0;
+      setAvatarOpacity(newOpacity);
+    };
+    updateOpacity();
+  }, [scrollY]);
+
+  // Set loader off when image loads
   const handleImageLoad = () => {
-    setIsImageLoading(false); // Hide skeleton after image loads
+    setIsImageLoading(false);
+    setAvatarOpacity(1); // Set opacity to 1 once image has loaded
   };
 
   return (
@@ -85,25 +112,6 @@ const Greeting = () => {
             filter: `opacity(0.5) drop-shadow(0 0 0 ${color.textColor})`,
           }}
         />
-
-        {/* Avatar Section */}
-        {/* <Avatar
-          alt="Aravindh"
-          src={color.bgColor === "#242424" ? heroImageDark : heroImageLight}
-          sx={{
-            width: { xs: 200, sm: 240, md: 300 },
-            height: { xs: 200, sm: 240, md: 300 },
-            borderColor: `${color.textColor}`,
-            // objectFit: "contain",
-            opacity: avatarOpacity,
-            transition: "opacity 0.2s ease-in-out",
-            position: "relative",
-            zIndex: 1,
-            borderWidth: 2,
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        /> */}
 
         {/* Avatar Section with Skeleton */}
         <div className="relative flex justify-center items-center mb-4 xs:mb-2">
@@ -131,7 +139,7 @@ const Greeting = () => {
               width: { xs: 200, sm: 240, md: 280 },
               height: { xs: 200, sm: 240, md: 280 },
               borderColor: `${color.textColor}`,
-              opacity: isImageLoading ? 0 : 1, // Hide Avatar until loaded
+              opacity: avatarOpacity, // Hide Avatar until loaded
               transition: "opacity 0.3s ease-in-out",
               position: "relative",
               zIndex: 1,
@@ -158,7 +166,7 @@ const Greeting = () => {
             style={greetingStyle}
             className={`text-base xs:text-lg sm:text-3xl md:text-4xl lg:text-5xl font-bold ${
               isMd ? "text-5xl" : ""
-            }`} // Adjust text size for md screens
+            }`}
             sx={{
               color: `${color.textColor}`,
             }}
