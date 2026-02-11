@@ -8,7 +8,7 @@ import { useColor } from "../contexts/ColorContext";
 
 const Greeting = () => {
   const greeting = `Hi, I'm Aravindh`;
-  const shortNote = `Full Stack Developer with over 1 year of experience in designing and implementing
+  const shortNote = `Full Stack Developer with over 3 years of experience in designing and implementing
    user-friendly solutions, including a 
   data cleansing and storage system, a transportation booking 
   platform, and a goal-tracking application.`;
